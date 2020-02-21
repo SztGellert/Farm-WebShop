@@ -15,6 +15,7 @@
 		<dd>
 			<?php echo h($product['Product']['price']); ?>
 			&nbsp;
+			<?php echo('Ft/kg'); ?>
 		</dd>
 	</dl>
 </div>

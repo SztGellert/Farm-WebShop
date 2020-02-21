@@ -27,6 +27,14 @@ class OrdersController extends AppController {
 		$this->set('orders', $this->Paginator->paginate());
 	}
 
+	public function daily($creation_date = null) {
+		$this->Order->recursive = 0;
+		$this->set('orders', $this->Paginator->paginate());
+	}
+
+	public function test($id = null) {
+		phpinfo();
+	}
 /**
  * view method
  *
@@ -34,22 +42,25 @@ class OrdersController extends AppController {
  * @param string $id
  * @return void
  */
-	public function view($id = null) {
-		if (!$this->Order->exists($id)) {
+	public function view($creation_date = null) {
+		if (!$this->Order->exists($creation_date)) {
 			throw new NotFoundException(__('Invalid order'));
 		}
-		$options = array('conditions' => array('Order.' . $this->Order->primaryKey => $id));
+		$options = array('conditions' => array('Order.' . $this->Order->primaryKey => $creation_date));
 		$this->set('order', $this->Order->find('first', $options));
 	}
+
 
 /**
  * add method
  *
  * @return void
  */
-	public function add() {
+	public function add($id = null) {
 		if ($this->request->is('post')) {
 			$this->Order->create();
+			date_default_timezone_set("Europe/Budapest");
+			$this->Order->saveField('creation_date', substr(date('Y-m-d'),0,10));
 			if ($this->Order->save($this->request->data)) {
 				$this->Flash->success(__('The order has been saved.'));
 				return $this->redirect(array('action' => 'index'));
@@ -62,7 +73,7 @@ class OrdersController extends AppController {
 	}
 
 /**
- * edit method
+ * edit methodgl
  *
  * @throws NotFoundException
  * @param string $id

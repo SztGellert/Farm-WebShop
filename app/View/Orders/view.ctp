@@ -16,6 +16,11 @@
 			<?php echo h($order['Order']['amount']); ?>
 			&nbsp;
 		</dd>
+		<dt><?php echo __('E-mail:'); ?></dt>
+		<dd>
+			<?php echo h($order['Order']['email']); ?>
+			&nbsp;
+			</dd>
 	</dl>
 </div>
 <div class="actions">

@@ -6,6 +6,7 @@
 			<th><?php echo $this->Paginator->sort('id'); ?></th>
 			<th><?php echo $this->Paginator->sort('product_id'); ?></th>
 			<th><?php echo $this->Paginator->sort('amount'); ?></th>
+			<th><?php echo $this->Paginator->sort('creation_date'); ?></th>
 			<th class="actions"><?php echo __('Actions'); ?></th>
 	</tr>
 	</thead>
@@ -17,10 +18,11 @@
 			<?php echo $this->Html->link($order['Product']['name'], array('controller' => 'products', 'action' => 'view', $order['Product']['id'])); ?>
 		</td>
 		<td><?php echo h($order['Order']['amount']); ?>&nbsp;</td>
+		<td><?php echo h($order['Order']['creation_date']); ?>&nbsp;</td>
 		<td class="actions">
+			<?php echo $this->Html->link(__('Daily'), array('action' => 'Daily', $order['Order']['id'])); ?>
 			<?php echo $this->Html->link(__('View'), array('action' => 'view', $order['Order']['id'])); ?>
 			<?php echo $this->Html->link(__('Edit'), array('action' => 'edit', $order['Order']['id'])); ?>
-			<?php echo $this->Html->link(__('Order'), array('action' => 'view', $order['Order']['id'])); ?>
 			<?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $order['Order']['id']), array('confirm' => __('Are you sure you want to delete # %s?', $order['Order']['id']))); ?>
 		</td>
 	</tr>
@@ -45,6 +47,7 @@
 	<h3><?php echo __('Actions'); ?></h3>
 	<ul>
 		<li><?php echo $this->Html->link(__('New Order'), array('action' => 'add')); ?></li>
+		<li><?php echo $this->Html->link(__('Show Daily Summarize'), array('action' => 'daily')); ?></li>
 		<li><?php echo $this->Html->link(__('List Products'), array('controller' => 'products', 'action' => 'index')); ?> </li>
 		<li><?php echo $this->Html->link(__('New Product'), array('controller' => 'products', 'action' => 'add')); ?> </li>
 	</ul>

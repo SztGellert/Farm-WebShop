@@ -1,5 +1,8 @@
 <div class="products index">
-	<h2><?php echo __('Products'); ?>lfkadjh alashlfkjasdhf lkjasdfhlkjadsfh alkjshf dskj</h2>
+	<h2><?php echo __('List of primary products'); ?></h2>
+	<?php $datem=date("Y/m/d")?>
+	<?phpdebug($datem)?>
+	<?php echo "Today is " .$datem. "<br>"; ?>
 	<table cellpadding="0" cellspacing="0">
 	<thead>
 	<tr>
@@ -14,15 +17,16 @@
 	<tr>
 		<td><?php echo h($product['Product']['id']); ?>&nbsp;</td>
 		<td><?php echo h($product['Product']['name']); ?>&nbsp;</td>
-		<td><?php echo h($product['Product']['price']); ?>&nbsp;</td>
+		<td><?php echo h($product['Product']['price'].' Ft/Kg'); ?>&nbsp;</td>
+
 		<td class="actions">
 			<?php echo $this->Html->link(__('View'), array('action' => 'view', $product['Product']['id'])); ?>
 			<?php echo $this->Html->link(__('Edit'), array('action' => 'edit', $product['Product']['id'])); ?>
-			<?php echo $this->Html->link(__('Order'), array('action' => 'edit', $product['Product']['id'])); ?>
+			<?php echo $this->Html->link(__('Order'), array('controller' => 'orders','action' => 'add', $product['Product']['id'])); ?>
 			<?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $product['Product']['id']), array('confirm' => __('Are you sure you want to delete # %s?', $product['Product']['id']))); ?>
 		</td>
 	</tr>
-<?php endforeach; ?>
+<?php endforeach; ?>      
 	</tbody>
 	</table>
 	<p>

@@ -1,6 +1,6 @@
-# Cake4g
+# Farmer_WebShop
 
-A simple php project boilerplate for my brother
+MY first CakePHP WebShop.
 
 ![alt text](docs/1.png "Products open page")
 ![alt text](docs/2.png "Add new product")

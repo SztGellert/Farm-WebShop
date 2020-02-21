@@ -5,6 +5,11 @@
 	<?php
 		echo $this->Form->input('product_id');
 		echo $this->Form->input('amount');
+		$email = $this->Form->input('email');
+		echo($email);
+		if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+  		$emailErr = "Invalid email format";
+		}
 	?>
 	</fieldset>
 <?php echo $this->Form->end(__('Submit')); ?>

@@ -1,0 +1,29 @@
+version: "3.7"
+services:
+  web:
+    build: www
+    container_name: cakeweb
+    restart: always
+    links:
+      - database:databasehost
+    volumes:
+      - .:/cake
+      - /dev/shm:/dev/shm
+      - /media:/media
+      - /etc/hosts:/etc/hosts:ro
+    cap_add:
+    - NET_ADMIN
+    - SYS_ADMIN
+
+  database:
+    build: database
+    restart: always
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    restart: always
+    links:
+      - database:db
+    volumes:
+      - ./phpmyadmin/config.user.inc.php:/etc/phpmyadmin/config.user.inc.php
+      - ./phpmyadmin/session.ini:/usr/local/etc/php/conf.d/session.ini

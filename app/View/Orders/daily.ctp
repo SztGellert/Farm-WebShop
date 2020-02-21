@@ -1,5 +1,5 @@
 
-<th><?php echo ('Please choose a day! (example:2020-02-12)'); ?>
+<th><?php echo ('Please choose a day!'); ?></th></br></br>
 <?php #$days = array("2020-02-11","2020-02-12","2020-02-13","2020-02-19");?>
 <?php $days = (array)null; ?>
 <?php foreach ($orders as $order) {?>
@@ -10,20 +10,19 @@
 <?php $days=array_unique($days) ?>
 
 <?php foreach ($days as $day): ?>
-  	<option value=""><?php echo($day) ?></option>
+	<form method="post" action="<?php $name='fname'?>">
+	<button type="text" name="fname" value=<?php echo($day) ?> ><br>
+
+  	<select><option value="<?php $day ?>" onclick="this.form.submit()" ><?php echo($day) ?></option></br>
 	</select>
 
 <?php  endforeach; ?>
-
-<form method="post" action="<?php $name=str_replace(' ', '', "fname");?>">
-  Day: <input type="text" name="fname">
-  <input type="submit">
 </form>
 
 <?php
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // collect value of input field
-	$name = $_POST['fname'];
+	$name = $_POST[$name];
 	$name = trim($name);;
     if (empty($name)) {
         echo "Please type a valid date, listed above!";

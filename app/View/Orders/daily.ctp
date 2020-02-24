@@ -1,22 +1,32 @@
 
-<th><?php echo ('Please choose a day!'); ?></th></br></br>
-<?php #$days = array("2020-02-11","2020-02-12","2020-02-13","2020-02-19");?>
+<th>
 <?php $days = (array)null; ?>
 <?php foreach ($orders as $order) {?>
 	<?php #var_dump($order['Order']['creation_date']); ?>
 	<?php array_push($days,substr(($order['Order']['creation_date']),0,10));?>
 	<?php #print_r(array_values($days)); ?>
 <?php } ?>
-<?php $days=array_unique($days) ?>
+<?php $days=array_unique($days) ;
+	?>
 
-<?php foreach ($days as $day): ?>
+
 	<form method="post" action="<?php $name='fname'?>">
-	<button type="text" name="fname" value=<?php echo($day) ?> ><br>
+	<label for="days">Choose a Day!</label>
+	<select id="days" name="fname">
+<?php
+foreach ($days as $day): ?>	
 
-  	<select><option value="<?php $day ?>" onclick="this.form.submit()" ><?php echo($day) ?></option></br>
+	  <option value="<?php echo($day) ?>" <?php
+	  if ($_SERVER["REQUEST_METHOD"] == "POST" && array_key_exists('fname',$_POST)) {
+	  	if ($day==trim($_POST[$name]))
+	  	{
+			echo " selected ";
+	 	}
+		}
+	  ?> onclick="this.form.submit();" ><?php echo($day) ?></option></br>
+<?php  endforeach; ?>
 	</select>
 
-<?php  endforeach; ?>
 </form>
 
 <?php
@@ -27,7 +37,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (empty($name)) {
         echo "Please type a valid date, listed above!";
     } else {
-		echo $name;
+		echo ("Chosen Day: ".$name);
 		#<?php #if (in_array($name, $days)) {?>
 		<div class="orders index">
 		<h2><?php echo __('Orders'); ?></h2>
@@ -51,6 +61,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 				</td>
 				<td><?php echo h($order['Order']['amount']); ?>&nbsp;</td>
 				<td><?php echo h($order['Order']['creation_date']); ?>&nbsp;</td>
+
+
 				<td class="actions">
 				<?php echo $this->Html->link(__('Daily'), array('action' => 'Daily', $order['Order']['id'])); ?>
 				<?php echo $this->Html->link(__('View'), array('action' => 'view', $order['Order']['id'])); ?>

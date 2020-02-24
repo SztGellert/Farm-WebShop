@@ -1,4 +1,19 @@
+gege's saves
+
+<pre><?php print_r($orders); ?></pre>
+$this->set('orders', $this->Order->find('all','fields'));
+$this->set('orders', $this->Order->find('list'));
+array_keys($this->YourModel->getColumnTypes());
+$article = $articles->get($id);
+
+
+$felsorolas=$this->set('orders', $this->Order->find('all','fields'));
+		$this->set('orders', $this->Order->find('first', $felsorolas));
+
+
+-----------------------------------------
 hiszia gege
+}this nyil order nyil x
 
 
 Products controller

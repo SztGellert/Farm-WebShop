@@ -1,3 +1,122 @@
+<?php
+echo $this->Form->create('Post');
+
+echo $this->Form->input('username');
+echo $this->Form->input('password');
+
+echo $this->Form->end('Add');
+?>
+
+
+
+
+<form action='fname' method="GET">
+<select name='fname' onchange="this.form.submit()">
+<option value="1">Option 1 </option>
+<option value="2">Option 2 </option>
+<option value="3">Option 3 </option>
+<option value="4">Option 4 </option>
+<option value="5">Option 5 </option>
+</select>
+</form>
+
+
+echo $this->Form->select('creation_date', $dates);
+
+
+
+
+new_hint
+$felsorolas=$this->set('orders.', $this->Order->find('first','fields'));
+		$this->set('orders', $this->Order->find('first', $felsorolas));
+    
+    
+------------------   
+
+LOGIKA A CONTROLLERBEN
+
+$orders = $this->Order->find('all');
+
+[
+0 => Order => create_date => 2020-02-25 15:15:00
+              product_id  => 15
+     Product => id => 15
+     					  name => Karalabe
+                price => 234
+1 => Order => create_date => 2020-02-24 15:15:00
+              product_id  => 10
+]
+
+$dates = array();
+
+foreach($orders as $order)
+{
+	$dates[] = substr($order['Order']['create_date'],0,10);
+}
+
+$dates = array_unique($dates);
+
+$this->set('orders.', $orders );
+$this->set('dates.', $dates );
+
+view:
+
+echo $this->Form->input('create_date', array('type'=>'select', 'options'=> $dates )); --> cakephp 1
+echo $this->Form->select('create_date', $dates); --> cakephp 2
+
+<select name="data[Order][create_date]" id="OrderType">
+ <option value=""></option>
+ <option value="M">Male</option>
+ <option value="F">Female</option>
+</select>
+
+
+---------------------------------------
+
+LOGIKA A MODELLBEN
+
+order.php
+
+class Order extends AppModel {
+
+public function getDaysWithOrder()
+{
+	$dates = array()
+	$orders = $this->find('list',array('fields'=>array('id','create_date')));
+
+	foreach($orders as $orderId => $createDate)
+	{
+		$dates[] = substr($createDate,0,10);
+	}
+
+	$dates = array_unique($dates);
+	debug($dates);
+  return $dates;
+}
+
+}
+
+
+orders_controller
+$dates = $this->Order->getDaysWithOrder();
+$this->set('dates.', $dates );
+
+
+view
+echo $this->Form->select('create_date', $dates); --> cakephp 2
+
+
+
+
+
+
+
+
+
+
+
+
+---
 gege's saves
 
 <pre><?php print_r($orders); ?></pre>

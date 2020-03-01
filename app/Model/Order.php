@@ -7,6 +7,20 @@ App::uses('AppModel', 'Model');
  */
 class Order extends AppModel {
 
+	public function getDaysWithOrder()
+	{
+		$dates = array();
+		$orders = $this->find('list',array('fields'=>array('id','creation_date')));
+	
+		foreach($orders as $orderId => $createDate)
+		{
+		  $date = substr($createDate,0,10);
+			$dates[$date] = $date;
+		}
+	
+	  
+	return $dates;
+}
 /**
  * Validation rules
  *
@@ -61,4 +75,5 @@ class Order extends AppModel {
 			'order' => ''
 		)
 	);
+		
 }

@@ -18,7 +18,7 @@
 	</div>
 </div>
 <div class="actions">
-	<h3><?php echo __('Actions'); ?></h3>
+	<h3><?php echo __('Navigation '); ?></h3>
 	<ul> 
 	<li><?php echo $this->Html->link(__('Show Orders'), array('controller' => 'orders','action' => 'index')); ?></li>
 		<li><?php echo $this->Html->link(__('New Order'), array('controller' => 'orders','action' => 'add')); ?></li>

@@ -12,9 +12,9 @@ class Order extends AppModel {
 		$dates = array();
 		$orders = $this->find('list',array('fields'=>array('id','creation_date')));
 	
-		foreach($orders as $orderId => $createDate)
+		foreach($orders as $orderId => $creation_date)
 		{
-		  $date = substr($createDate,0,10);
+		  $date = substr($creation_date,0,10);
 			$dates[$date] = $date;
 		}
 	

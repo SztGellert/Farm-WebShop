@@ -64,7 +64,6 @@
 
 <?php
 echo $this->Form->create();
-pr($dates);
 echo $this->Form->select('creation_date', $dates);
 
 

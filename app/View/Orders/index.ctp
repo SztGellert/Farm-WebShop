@@ -61,15 +61,6 @@
 <div class="actions">
 	<h3><?php echo __('Actions'); ?></h3>
 	<ul>
-
-<?php
-echo $this->Form->create();
-
-echo $this->Form->select('creation_date', $dates);
-
-echo $this->Form->end('Daily');
-?>
-
 		<li><?php echo $this->Html->link(__('New Order'), array('action' => 'add')); ?></li>
 		<li><?php echo $this->Html->link(__('Show Daily Summarize'), array('action' => 'daily')); ?></li>
 		<li><?php echo $this->Html->link(__('List Products'), array('controller' => 'products', 'action' => 'index')); ?> </li>

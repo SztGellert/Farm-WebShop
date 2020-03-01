@@ -1,8 +1,7 @@
 <div class="products index">
 	<h2><?php echo __('List of primary products'); ?></h2>
-	<?php $datem=date("Y/m/d")?>
-	<?php debug($datem)?>
-	<?php echo "Today is " .$datem. "<br>"; ?>
+	<?php $date=date("Y/m/d")?>
+	<?php echo "Today is " .$date. "<br>"; ?>
 	<table cellpadding="0" cellspacing="0">
 	<thead>
 	<tr>

@@ -24,10 +24,7 @@ class OrdersController extends AppController {
  */ public $uses = array('Order');
 	public function index($numberOfOrders=null) {
 		$orders = $this->Order->find('all');
-		$params = array(
-			'conditions'=>array('Order.creation_date LIKE' =>"2020-02-27%"),
-			'limit' => $numberOfOrders
-		);
+		$params = array('limit' => $numberOfOrders);
 		$Definitelynotorders=$this->Order->find('all',$params);
 		$this->Order->recursive = 0;
 		$this->set('orders', $this->Paginator->paginate());
@@ -36,8 +33,7 @@ class OrdersController extends AppController {
 		$total_amount=array_sum($total_amount);
 		$this->loadModel('Product');
 		$price = $this->Product->field('price');
-/* 		$price=Hash::extract($Definitelynotorders, 'Product.price');
- */		$total_price=Hash::extract($Definitelynotorders, '{n}.Product.price');
+ 		$total_price=Hash::extract($Definitelynotorders, '{n}.Product.price');
 		$total_price=array_sum($total_price);
 		$amount = $this->Order->field('amount');
 		$price=($price*$amount);
@@ -50,7 +46,6 @@ class OrdersController extends AppController {
 	}
 
 	public function daily($creation_date=null) {
-		pr($this->request);
 		if (!$creation_date && 
 			$this->request &&
 				is_array($this->request->data) &&
@@ -73,8 +68,7 @@ class OrdersController extends AppController {
 		$total_amount=array_sum($total_amount);
 		$this->loadModel('Product');
 		$price = $this->Product->field('price');
-/* 		$price=Hash::extract($Definitelynotorders, 'Product.price');
- */		$total_price=Hash::extract($Definitelynotorders, '{n}.Product.price');
+ 		$total_price=Hash::extract($Definitelynotorders, '{n}.Product.price');
 		$total_price=array_sum($total_price);
 		$amount = $this->Order->field('amount');
 		$price=($price*$amount);

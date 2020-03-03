@@ -5,7 +5,13 @@ App::uses('AppModel', 'Model');
  *
  * @property Product $Product
  */
+
+ ClassRegistry::init(array(
+	'class' => 'Product', 
+	'alias' => 'ProductModelAlias'
+));
 class Order extends AppModel {
+	
 
 	public function getDaysWithOrder()
 	{
@@ -20,6 +26,37 @@ class Order extends AppModel {
 	
 	  
 	return $dates;
+}
+public function getfruits()
+	{
+		$veggies = array();
+		$products = $this->Product->find('list',array('fields'=>array('name','category')));
+	
+		$fruits=array();
+		foreach($products as $name => $category)
+		{
+			if ($category=="fruit")
+				$fruits[] = $name;
+		}
+	
+	  
+	return $fruits;
+}
+
+public function getvegetables()
+	{
+		$veggies = array();
+		$products = $this->Product->find('list',array('fields'=>array('name','category')));
+	
+		$vegetables=array();
+		foreach($products as $name => $category)
+		{
+			if ($category=="vegetable")
+		 		$vegetables[] = $name;
+		}
+	
+	  
+	return $vegetables;
 }
 /**
  * Validation rules

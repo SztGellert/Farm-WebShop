@@ -7,6 +7,7 @@
 	<tr>
 			<th><?php echo $this->Paginator->sort('id'); ?></th>
 			<th><?php echo $this->Paginator->sort('name'); ?></th>
+			<th><?php echo $this->Paginator->sort('category'); ?></th>
 			<th><?php echo $this->Paginator->sort('price'); ?></th>
 			<th class="actions"><?php echo __('Actions'); ?></th>
 	</tr>
@@ -16,6 +17,7 @@
 	<tr>
 		<td><?php echo h($product['Product']['id']); ?>&nbsp;</td>
 		<td><?php echo h($product['Product']['name']); ?>&nbsp;</td>
+		<td><?php echo h($product['Product']['category']); ?>&nbsp;</td>
 		<td><?php echo h($product['Product']['price'].' Ft/Kg'); ?>&nbsp;</td>
 
 		<td class="actions">

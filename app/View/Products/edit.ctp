@@ -5,6 +5,8 @@
 	<?php
 		echo $this->Form->input('id');
 		echo $this->Form->input('name');
+		echo('As a Category please write "vegetable" or "fruit"!');
+		echo $this->Form->input('category');
 		echo $this->Form->input('price');
 	?>
 	</fieldset>

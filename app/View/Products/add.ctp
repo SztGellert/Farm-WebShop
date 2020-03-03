@@ -4,7 +4,9 @@
 		<legend><?php echo __('Add Product'); ?></legend>
 	<?php
 		echo $this->Form->input('name');
+		echo $this->Form->input('category');echo('fruit / vegetable');
 		echo $this->Form->input('price');
+
 	?>
 	</fieldset>
 <?php echo $this->Form->end(__('Submit')); ?>

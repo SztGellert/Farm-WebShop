@@ -11,7 +11,7 @@ App::uses('AppController', 'Controller');
 class OrdersController extends AppController {
 
 /**
- * Components
+ * Componentss
  *
  * @var array
  */
@@ -77,6 +77,11 @@ class OrdersController extends AppController {
 		$this->set(compact('total_amount','total_price','total','price','amount'));
 		$dates = $this->Order->getDaysWithOrder();
 		$this->set('dates', $dates );
+		$fruits=$this->Order->getfruits();
+		$vegetables=$this->Order->getvegetables();
+		$this->set(compact('fruits','vegetables'));
+
+
 
 		/* $orders = $this->Order->find('all');
 		$this->set('orders', $orders );

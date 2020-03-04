@@ -6,10 +6,7 @@ App::uses('AppModel', 'Model');
  * @property Product $Product
  */
 
- ClassRegistry::init(array(
-	'class' => 'Product', 
-	'alias' => 'ProductModelAlias'
-));
+
 class Order extends AppModel {
 	
 

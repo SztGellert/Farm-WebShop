@@ -53,7 +53,10 @@
 			}
 			?>
 
-		<?php $total_price+=$order_price; ?>
+		<?php $total_price+=$order_price; 
+		$toplist=array();
+		$toplist[]=$order_price;
+		?>
 		
 			
 		
@@ -69,12 +72,13 @@
 </tbody>
 </table>
 <p>
+
 <?php $fruits_amount_percent=0; $veggies_amout_percent=0; $fruits_income_percent=0; $vegetables_income_percent=0;
 $fruits_amount_percent=($fruits_amount/$total_amount*100); $vegetables_amount_percent=($vegetables_amount/$total_amount*100); 
 $fruits_income_percent=($fruits_income/$total_price)*100; $vegetables_income_percent=($vegetables_income/$total_price)*100;?>
 
-
-<th><b><?php echo "Fruits income:"; ?>&nbsp;<?php echo($fruits_income. "\rFt \t( ".$fruits_income_percent."% )"); ?>&nbsp;</td></th></br>
+<!-- <th><b><?php echo "Top 3 Products"; ?>&nbsp;<?php echo($fruits_income. "\rFt \t( ".$fruits_income_percent."% )"); ?>&nbsp;</td></th></br>
+ --><th><b><?php echo "Fruits income:"; ?>&nbsp;<?php echo($fruits_income. "\rFt \t( ".$fruits_income_percent."% )"); ?>&nbsp;</td></th></br>
 <th><b><?php echo "Fruits amount:"; ?>&nbsp;<?php echo($fruits_amount. "\rKg \t( ".$fruits_amount_percent."% )"); ?>&nbsp;</td></th></br>
 <th><b><?php echo "Vegetables income:"; ?>&nbsp;<?php echo($vegetables_income."\rFt \t( ".$vegetables_income_percent."% )"); ?>&nbsp;</td></th></br>
 <th><b><?php echo "Vegetables amount:"; ?>&nbsp;<?php echo($vegetables_amount."\rKg \t( ".$vegetables_amount_percent."% )"); ?>&nbsp;</td></th></br>
@@ -106,12 +110,24 @@ $fruits_income_percent=($fruits_income/$total_price)*100; $vegetables_income_per
 	<?php
 echo $this->Form->create();
 echo $this->Form->select('creation_date', $dates);
+echo $this->Form->end('Submit');
+?>
+
+	<?php
+echo $this->Form->create();
+echo $this->Form->select('creation_date', $dates);
+
+
+/* echo $this->Form->end('Submit');
+ */?>
+<?php
+echo $this->Form->select('Product.name', $groceries);
 
 
 echo $this->Form->end('Submit');
 ?>
 		<li><?php echo $this->Html->link(__('New Order'), array('action' => 'add')); ?></li>
-		<li><?php echo $this->Html->link(__('Show Daily Summarize'), array('action' => 'daily')); ?></li>
+		<li><?php echo $this->Html->link(__('Show Daily Summary'), array('action' => 'daily')); ?></li>
 		<li><?php echo $this->Html->link(__('List Products'), array('controller' => 'products', 'action' => 'index')); ?> </li>
 		<li><?php echo $this->Html->link(__('New Product'), array('controller' => 'products', 'action' => 'add')); ?> </li>
 	</ul>

@@ -7,15 +7,17 @@ App::uses('AppController', 'Controller');
  * @property PaginatorComponent $Paginator
  * @property SessionComponent $Session
  * @property FlashComponent $Flash
+ * @property virtualFields
  */
+
 class OrdersController extends AppController {
 
 /**
- * Componentss
+ * Components
  *
  * @var array
  */
-	public $components = array('Paginator', 'Session', 'Flash');
+	public $components = array('Paginator', 'Session', 'Flash','Stats');
 
 /**
  * index method
@@ -24,28 +26,40 @@ class OrdersController extends AppController {
  */ public $uses = array('Order');
 	public function index($numberOfOrders=null) {
 		$orders = $this->Order->find('all');
-		$params = array('limit' => $numberOfOrders);
-		$Definitelynotorders=$this->Order->find('all',$params);
+/* 		$price=$this->Stats->doComplexOperation('Orders.amount','Product.price');
+ */		$params = array('limit' => $numberOfOrders);
+		$orders=$this->Order->find('all',$params);
 		$this->Order->recursive = 0;
-		$this->set('orders', $this->Paginator->paginate());
-		$this->set('orders', $Definitelynotorders );
-		$total_amount=Hash::extract($Definitelynotorders, '{n}.Order.amount');
-		$total_amount=array_sum($total_amount);
-		$this->loadModel('Product');
-		$price = $this->Product->field('price');
- 		$total_price=Hash::extract($Definitelynotorders, '{n}.Product.price');
-		$total_price=array_sum($total_price);
-		$amount = $this->Order->field('amount');
-		$price=($price*$amount);
-
-		$total=($total_amount+$total_price);
-		$this->set(compact('total_amount','total_price','total','price','amount'));
+		$this->set('orders', $orders );
+		$total_amount=$this->Stats->summation($orders, 'amount');
+		debug($total_amount);
+		$total_price=$this->Stats->sumproducts($orders,'Order','Product');
+		$this->Stats->calculatelinetotals($orders,'Order','Product');
+		debug($orders);
+		debug($total_price);
+		$this->set(compact('total_amount','total_price','price'));
 		$dates = $this->Order->getDaysWithOrder();
 		$this->set('dates', $dates );
+		$this->set('orders', $this->Paginator->paginate());
 
 	}
 
-	public function daily($creation_date=null) {
+	public function daily($creation_date=null, $name=null) {
+		$fruits= $this->Order->getfruits();
+		$vegetables=$this->Order->getvegetables();
+		$groceries=[];
+		$groceries=array_merge($fruits,$vegetables);
+		$this->set('groceries',$groceries);
+		if (!$name && 
+			$this->request &&
+				is_array($this->request->data) &&
+				array_key_exists('Product',$this->request->data) &&
+				array_key_exists('name',$this->request->data['Product']))
+		{
+			$name = $this->request->data['Product']['name'];
+			$name =$groceries[$name];
+
+		}
 		if (!$creation_date && 
 			$this->request &&
 				is_array($this->request->data) &&
@@ -57,52 +71,25 @@ class OrdersController extends AppController {
 		
 		$orders = $this->Order->find('all');
 		$params = array(
-			'conditions'=>array('Order.creation_date LIKE' =>$creation_date."%"),
+			'conditions'=>array('Order.creation_date LIKE' =>$creation_date."%", 'Product.name LIKE' =>$name."%"),
 			'limit' => 20
 		);
-		$Definitelynotorders=$this->Order->find('all',$params);
+		$orders=$this->Order->find('all',$params);
 		$this->Order->recursive = 0;
 		$this->set('orders', $this->Paginator->paginate());
-		$this->set('orders', $Definitelynotorders );
-		$total_amount=Hash::extract($Definitelynotorders, '{n}.Order.amount');
+		$this->set('orders', $orders );
+		$total_amount=Hash::extract($orders, '{n}.Order.amount');
 		$total_amount=array_sum($total_amount);
 		$this->loadModel('Product');
-		$price = $this->Product->field('price');
- 		$total_price=Hash::extract($Definitelynotorders, '{n}.Product.price');
+ 		$total_price=Hash::extract($orders, '{n}.Product.price');
 		$total_price=array_sum($total_price);
-		$amount = $this->Order->field('amount');
-		$price=($price*$amount);
-
-		$total=($total_amount+$total_price);
-		$this->set(compact('total_amount','total_price','total','price','amount'));
+		$this->set(compact('total_amount','total_price'));
 		$dates = $this->Order->getDaysWithOrder();
 		$this->set('dates', $dates );
 		$fruits=$this->Order->getfruits();
 		$vegetables=$this->Order->getvegetables();
 		$this->set(compact('fruits','vegetables'));
 
-
-
-		/* $orders = $this->Order->find('all');
-		$this->set('orders', $orders );
-		$dates = $this->Order->getDaysWithOrder();
-		$this->set('dates', $dates );
-		$myvar=$this->request->$orders['Order']['creation_date'];
-		debug($myvar);
-		$name = $_POST['creation_date'];
-		$purchase = $_POST['submit'];
-		echo($name.$purchase); */
-		/* if ($this->request->is('post')) {
-			$myvar=$this->request->data('Order.creation_date');
-			echo $myvar;
-		}
-		$products = $this->Order->Product->find('list');
-		$this->set(compact('products'));
-			} */
-		/* $myform=$this->Form->create(false);
-		$this->set('myform',$myform); */
-		/* $this->Order->recursive = 0;
-		$this->set('orders', $this->Paginator->paginate()); */
 		}
 
 	public function test() {
@@ -135,7 +122,21 @@ class OrdersController extends AppController {
  *
  * @return void
  */
-	public function add($id = null) {
+	public function add($product_id= null) {
+		$params = array(
+			'conditions'=>array('Product.product_id LIKE' =>$product_id."%"),
+			'limit' => 20
+		);
+		if (!$product_id && 
+		$this->request &&
+			is_array($this->request->data) &&
+			array_key_exists('Order',$this->request->data) &&
+			array_key_exists('id',$this->request->data['Product']))
+	{
+		$id = $this->request->data['Product']['id'];
+		$this->set('id', $id );
+
+	}
 		if ($this->request->is('post')) {
 			$this->Order->create();
 			date_default_timezone_set("Europe/Budapest");

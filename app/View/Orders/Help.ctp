@@ -1,5 +1,6 @@
 
-
+	$total_amount=$this->Stats->summation($Definitelynotorders, 'amount');
+		$total_price=$this->Stats->summation($Definitelynotorders, 'Product.price');
 products/order
 <div class="products form">
 <?php echo $this->Form->create('Order'); ?>

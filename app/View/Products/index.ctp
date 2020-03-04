@@ -23,7 +23,7 @@
 		<td class="actions">
 			<?php echo $this->Html->link(__('View'), array('action' => 'view', $product['Product']['id'])); ?>
 			<?php echo $this->Html->link(__('Edit'), array('action' => 'edit', $product['Product']['id'])); ?>
-			<?php echo $this->Html->link(__('Order'), array('controller' => 'orders','action' => 'add', $product['Product']['id'])); ?>
+			<?php echo $this->Html->link(__('Order'), array('controller' => 'orders','action' => 'add', $product['Product']['product_id'])); ?>
 			<?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $product['Product']['id']), array('confirm' => __('Are you sure you want to delete # %s?', $product['Product']['id']))); ?>
 		</td>
 	</tr>

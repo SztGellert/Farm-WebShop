@@ -11,7 +11,7 @@
 			<?php echo h($product['Product']['name']); ?>
 			&nbsp;
 		</dd>
-		<dt><?php echo __('Category: fruit or vegetable'); ?></dt>
+		<dt><?php echo __('Category:'); ?></dt>
 		<dd>
 			<?php echo h($product['Product']['category']); ?>
 			&nbsp;

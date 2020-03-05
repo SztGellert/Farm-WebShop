@@ -58,6 +58,6 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
 		</div>
 	</div>
 	<?php echo $this->element('sql_dump'); ?>
+	<?php echo "© Gellért Sztankovszky, 2020."; ?></br><?php echo $cakeVersion; ?>
 </body>
-<center><?php echo $cakeVersion; ?></center>
 </html>

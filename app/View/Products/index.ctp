@@ -7,6 +7,8 @@
 	<tr>
 			<th><?php echo $this->Paginator->sort('id'); ?></th>
 			<th><?php echo $this->Paginator->sort('name'); ?></th>
+			<th><?php echo $this->Paginator->sort('image'); ?></th>
+
 			<th><?php echo $this->Paginator->sort('category'); ?></th>
 			<th><?php echo $this->Paginator->sort('price'); ?></th>
 			<th class="actions"><?php echo __('Actions'); ?></th>
@@ -17,13 +19,15 @@
 	<tr>
 		<td><?php echo h($product['Product']['id']); ?>&nbsp;</td>
 		<td><?php echo h($product['Product']['name']); ?>&nbsp;</td>
+		<td><?php echo $this->Html->image($product['Product']['picture']); ?>&nbsp;</td>
+
 		<td><?php echo h($product['Product']['category']); ?>&nbsp;</td>
 		<td><?php echo h($product['Product']['price'].' Ft/Kg'); ?>&nbsp;</td>
 
 		<td class="actions">
 			<?php echo $this->Html->link(__('View'), array('action' => 'view', $product['Product']['id'])); ?>
 			<?php echo $this->Html->link(__('Edit'), array('action' => 'edit', $product['Product']['id'])); ?>
-			<?php echo $this->Html->link(__('Order'), array('controller' => 'orders','action' => 'add', $product['Product']['product_id'])); ?>
+			<?php echo $this->Html->link(__('Order'), array('controller' => 'orders','action' => 'add', $product['Product']['id'])); ?>
 			<?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $product['Product']['id']), array('confirm' => __('Are you sure you want to delete # %s?', $product['Product']['id']))); ?>
 		</td>
 	</tr>

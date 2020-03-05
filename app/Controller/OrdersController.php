@@ -25,22 +25,20 @@ class OrdersController extends AppController {
  * @return void
  */ public $uses = array('Order');
 	public function index($numberOfOrders=null) {
-		$orders = $this->Order->find('all');
-/* 		$price=$this->Stats->doComplexOperation('Orders.amount','Product.price');
- */		$params = array('limit' => $numberOfOrders);
+/* 		$orders = $this->Order->find('all');
+ */		$this->Order->recursive = 0;
+		$this->set('orders', $this->Paginator->paginate());
+ 		$params = array('limit' => $numberOfOrders);
 		$orders=$this->Order->find('all',$params);
-		$this->Order->recursive = 0;
-		$this->set('orders', $orders );
 		$total_amount=$this->Stats->summation($orders, 'amount');
-		debug($total_amount);
 		$total_price=$this->Stats->sumproducts($orders,'Order','Product');
-		$this->Stats->calculatelinetotals($orders,'Order','Product');
-		debug($orders);
-		debug($total_price);
-		$this->set(compact('total_amount','total_price','price'));
 		$dates = $this->Order->getDaysWithOrder();
 		$this->set('dates', $dates );
-		$this->set('orders', $this->Paginator->paginate());
+		$linetotal=$this->Stats->calculatelinetotals($orders,'Order','Product');
+		$this->set(compact('total_amount','total_price','price','linetotal'));
+		$this->set('orders', $orders );
+
+
 
 	}
 
@@ -78,17 +76,17 @@ class OrdersController extends AppController {
 		$this->Order->recursive = 0;
 		$this->set('orders', $this->Paginator->paginate());
 		$this->set('orders', $orders );
-		$total_amount=Hash::extract($orders, '{n}.Order.amount');
-		$total_amount=array_sum($total_amount);
-		$this->loadModel('Product');
- 		$total_price=Hash::extract($orders, '{n}.Product.price');
-		$total_price=array_sum($total_price);
-		$this->set(compact('total_amount','total_price'));
+		$total_amount=$this->Stats->summation($orders, 'amount');
+		$total_price=$this->Stats->sumproducts($orders,'Order','Product');
+		$linetotal=$this->Stats->calculatelinetotals($orders,'Order','Product');
+		$this->set(compact('total_amount','total_price','linetotal'));
 		$dates = $this->Order->getDaysWithOrder();
 		$this->set('dates', $dates );
 		$fruits=$this->Order->getfruits();
 		$vegetables=$this->Order->getvegetables();
 		$this->set(compact('fruits','vegetables'));
+		$this->set('orders', $orders );
+
 
 		}
 
@@ -108,7 +106,6 @@ class OrdersController extends AppController {
  * @return void
  */
 	public function view($id = null) {
-		debug($this->referer());
 		if (!$this->Order->exists($id)) {
 			throw new NotFoundException(__('Invalid order'));
 		}
@@ -123,24 +120,11 @@ class OrdersController extends AppController {
  * @return void
  */
 	public function add($product_id= null) {
-		$params = array(
-			'conditions'=>array('Product.product_id LIKE' =>$product_id."%"),
-			'limit' => 20
-		);
-		if (!$product_id && 
-		$this->request &&
-			is_array($this->request->data) &&
-			array_key_exists('Order',$this->request->data) &&
-			array_key_exists('id',$this->request->data['Product']))
-	{
-		$id = $this->request->data['Product']['id'];
-		$this->set('id', $id );
-
-	}
 		if ($this->request->is('post')) {
 			$this->Order->create();
 			date_default_timezone_set("Europe/Budapest");
 			$this->Order->saveField('creation_date', (date('Y-m-d H:i:s')));
+			$this->Order->saveField('modification_date', (date('Y-m-d H:i:s')));
 			if ($this->Order->save($this->request->data)) {
 				$this->Flash->success(__('The order has been saved.'));
 				return $this->redirect(array('action' => 'index'));
@@ -153,7 +137,7 @@ class OrdersController extends AppController {
 	}
 
 /**
- * edit methodgl
+ * edit method
  *
  * @throws NotFoundException
  * @param string $id
@@ -165,6 +149,8 @@ class OrdersController extends AppController {
 		}
 		if ($this->request->is(array('post', 'put'))) {
 			if ($this->Order->save($this->request->data)) {
+				date_default_timezone_set("Europe/Budapest");
+				$this->Order->saveField('modification_date', (date('Y-m-d H:i:s')));
 				$this->Flash->success(__('The order has been saved.'));
 				return $this->redirect(array('action' => 'index'));
 			} else {

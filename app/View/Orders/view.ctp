@@ -11,11 +11,32 @@
 			<?php echo $this->Html->link($order['Product']['name'], array('controller' => 'products', 'action' => 'view', $order['Product']['id'])); ?>
 			&nbsp;
 		</dd>
-		<dt><?php echo __('Amount'); ?></dt>
+		<dt><?php echo __('Category'); ?></dt>
 		<dd>
-			<?php echo h($order['Order']['amount']); ?>
+			<?php echo h($order['Product']['category']); ?>
 			&nbsp;
 		</dd>
+		<dt><?php echo __('Amount'); ?></dt>
+		<dd>
+			<?php echo h($order['Order']['amount']."\rkg"); ?>
+			&nbsp;
+		</dd>
+		<dt><?php echo __('Price'); ?></dt>
+		<dd>
+			<?php echo h($order['Order']['amount']*$order['Product']['price']."\rFt"); ?>
+			&nbsp;
+		</dd>
+		<dt><?php echo __('Creation Date'); ?></dt>
+		<dd>
+			<?php echo h($order['Order']['creation_date']); ?>
+			&nbsp;
+		</dd>
+		<dt><?php echo __('Modification Date'); ?></dt>
+		<dd>
+			<?php echo h($order['Order']['modification_date']); ?>
+			&nbsp;
+		</dd>
+		
 		<dt><?php echo __('E-mail:'); ?></dt>
 		<dd>
 			<?php echo h($order['Order']['email']); ?>

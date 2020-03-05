@@ -8,7 +8,7 @@
 	</thead>
 	<tbody>
 	<tr>
-		<td>This is a Primary Products Webshop.</td>
+		<p>This is a Primary Products Webshop.</p>
 	</tbody>
 	</table>
 	<p>

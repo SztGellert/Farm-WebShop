@@ -27,11 +27,13 @@ body {
 	font-family:'lucida grande',verdana,helvetica,arial,sans-serif;
 	font-size:90%;
 	margin: 0;
+	text-align: center;
 }
 a {
-	color: #1655dd;
+	color: #308b19;
 	text-decoration: underline;
 	font-weight: bold;
+	font-size:120%;
 }
 a:hover {
 	color: #367889;
@@ -39,6 +41,7 @@ a:hover {
 }
 a img {
 	border:none;
+	box-align:"center";
 }
 h1, h2, h3, h4 {
 	font-weight: normal;
@@ -53,7 +56,9 @@ h2 {
 	background:#fff;
 	color: rgb(129, 75, 13);
 	font-family:'Gill Sans','lucida grande', helvetica, arial, sans-serif;
-	font-size: 190%;
+	text-decoration: underline;
+	font-size: 220%;
+	text-align: center;
 }
 h3 {
 	color: #2c6877;
@@ -69,11 +74,13 @@ ul, li {
 }
 p {
 	margin: 0 0 1em 0;
+	text-align: center;
 }
 
 /** Layout **/
 #container {
 	text-align: left;
+	
 }
 
 #header{
@@ -106,12 +113,13 @@ p {
 #footer {
 	clear: both;
 	padding: 6px 10px;
+	align-content: center;
 }
 #header a, #footer a {
 	color: #fff;
 }
 #cake-powered {
-	float: right;
+	float: left;
 }
 
 /** containers **/
@@ -136,15 +144,18 @@ div.actions h3 {
 
 /** Tables **/
 table {
-	border-right:0;
+	border-right:20px;
 	clear: both;
 	color: #333;
 	margin-bottom: 10px;
 	width: 100%;
 }
 th {
-	border:0;
+	border-top:2px solid #555;
+	border-right:2px solid #555;
+	border-left:2px solid #555;
 	border-bottom:2px solid #555;
+
 	text-align: left;
 	padding:4px;
 }
@@ -162,8 +173,12 @@ th a.desc:after {
 table tr td {
 	padding: 6px;
 	text-align: left;
+	font-size:16px;
 	vertical-align: top;
-	border-bottom:1px solid #ddd;
+	border-top:1px solid rgb(21, 107, 18);
+	border-right:1px solid rgb(21, 107, 18);
+	border-left:1px solid rgb(21, 107, 18);
+	border-bottom:1px solid rgb(21, 107, 18);
 }
 table tr:nth-child(even) {
 	background: #f9f9f9;

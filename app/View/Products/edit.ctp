@@ -8,6 +8,7 @@
 		echo('As a Category please write "vegetable" or "fruit"!');
 		echo $this->Form->input('category');
 		echo $this->Form->input('price');
+
 	?>
 	</fieldset>
 <?php echo $this->Form->end(__('Submit')); ?>

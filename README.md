@@ -2,9 +2,10 @@
 
 MY first CakePHP WebShop.
 
-![alt text](docs/1.png "Products open page")
-![alt text](docs/2.png "Add new product")
-![alt text](docs/3.png "New product added")
+![alt text](docs/home.png "WebShop Open Page")
+![alt text](docs/products.png "Products")
+![alt text](docs/orders.png "Orders")
+![alt text](docs/daily.png "Orders/Daily View")
 
 ## Usage
 

@@ -25,18 +25,21 @@ class OrdersController extends AppController {
  * @return void
  */ public $uses = array('Order');
 	public function index($numberOfOrders=null) {
-/* 		$orders = $this->Order->find('all');
- */		$this->Order->recursive = 0;
-		$this->set('orders', $this->Paginator->paginate());
- 		$params = array('limit' => $numberOfOrders);
-		$orders=$this->Order->find('all',$params);
-		$total_amount=$this->Stats->summation($orders, 'amount');
-		$total_price=$this->Stats->sumproducts($orders,'Order','Product');
+		/* $this->Paginator->settings=array(
+			'limit'=>10,
+			'order'=>array('Order.id' => 'DESC')
+		); */
+		$orders=$this->Paginator->paginate();
+		$all_orders=$this->Order->find('all');
+		$total_amount=$this->Stats->summation($all_orders, 'amount');
+		$total_price=$this->Stats->sumproducts($all_orders,'Order','Product');
 		$dates = $this->Order->getDaysWithOrder();
 		$this->set('dates', $dates );
 		$linetotal=$this->Stats->calculatelinetotals($orders,'Order','Product');
-		$this->set(compact('total_amount','total_price','price','linetotal'));
-		$this->set('orders', $orders );
+		$this->set(compact('total_amount','total_price','linetotal'));
+/* 		debug($this->Order->find('all'));
+ */		$this->Order->recursive = 0;
+		 $this->set('orders', $orders);
 
 
 
@@ -69,7 +72,7 @@ class OrdersController extends AppController {
 		
 		$orders = $this->Order->find('all');
 		$params = array(
-			'conditions'=>array('Order.creation_date LIKE' =>$creation_date."%", 'Product.name LIKE' =>$name."%"),
+			'conditions'=>array('DATE(Order.creation_date)' =>$creation_date, 'Product.name LIKE' =>$name."%"),
 			'limit' => 20
 		);
 		$orders=$this->Order->find('all',$params);

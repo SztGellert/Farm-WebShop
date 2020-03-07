@@ -92,6 +92,22 @@ class ProductsController extends AppController {
 		$this->set('products', $this->Paginator->paginate());
 	}
 
+	public function test() {
+		$products=array();
+		/* $this->Product->recursive = 0;
+		$this->set('products', $this->Paginator->paginate()); */
+		if ($this->request->is('post')) {
+			$price = $this->request->data['Product']['price'];
+			$products = $this->Product->find('list',array(
+				'conditions'=>array('Product.price >='=>$price)
+			));
+		}
+		$this->set('products', $products );
+
+
+
+	}
+
 /**
  * view method
  *

@@ -4,12 +4,12 @@
 	<thead>
 	<tr>
 			<th><?php echo $this->Paginator->sort('id'); ?></th>
-<!-- 			<th><?php echo $this->Paginator->sort('product_id'); ?></th>
- -->		<th><?php echo $this->Paginator->sort('name'); ?></th>
+			<?php echo $this->Paginator->sort('product_id'); ?></th>
+		<th><?php echo $this->Paginator->sort('name'); ?></th>
 			<th><?php echo $this->Paginator->sort('Image'); ?></th>
  			<th><?php echo $this->Paginator->sort('category'); ?></th>
  			<th><?php echo $this->Paginator->sort('amount'); ?></th>
-			<th><?php echo $this->Paginator->sort('Price'); ?></th>
+			<th><?php echo $this->Paginator->sort('price'); ?></th>
 			<th><?php echo $this->Paginator->sort('creation_date'); ?></th>
 			<th><?php echo $this->Paginator->sort('modification_date'); ?></th>
 
@@ -73,8 +73,7 @@
 	<?php foreach ($orders as $order): ?>
 		<?php 
 		if (!array_key_exists ( $order['Product']['name'] , $top_groceries)) {
-	/* 		array_keys($top_groceries,$order['Product']['name']);
-	*/		$top_groceries[$order['Product']['name']]=intval($order['Order']['amount']*$order['Product']['price']);
+					$top_groceries[$order['Product']['name']]=intval($order['Order']['amount']*$order['Product']['price']);
 
 		
 
@@ -127,7 +126,7 @@ $fruits_income_percent=($fruits_income/$total_price)*100; $vegetables_income_per
 			<th>&nbsp;<?php echo $this->Paginator->sort('Income'); ?></th>
 			<th>&nbsp;<?php echo $this->Paginator->sort('Total Amount %'); ?></th>
 			<th><?php echo $this->Paginator->sort('Total Income %'); ?></th></tr>
-			</tbody></table><tbody><table><td><?php echo h("Fruits");?></td>
+			</tbody><tbody><td><?php echo h("Fruits");?></td>
 			<td><?php echo h($fruits_amount. "\rKg");?></td>
 			<td><?php echo h($fruits_income. "\rFt");?></td>
 

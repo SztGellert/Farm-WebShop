@@ -26,34 +26,21 @@ class Order extends AppModel {
 }
 public function getfruits()
 	{
-		$veggies = array();
-		$products = $this->Product->find('list',array('fields'=>array('name','category')));
-	
-		$fruits=array();
-		foreach($products as $name => $category)
-		{
-			if ($category=="fruit")
-				$fruits[] = $name;
-		}
-	
-	  
-	return $fruits;
+		return $this->getproductByCategory(('fruit'));
 }
 
 public function getvegetables()
 	{
-		$veggies = array();
-		$products = $this->Product->find('list',array('fields'=>array('name','category')));
-	
-		$vegetables=array();
-		foreach($products as $name => $category)
-		{
-			if ($category=="vegetable")
-		 		$vegetables[] = $name;
-		}
-	
+		return $this->getproductByCategory('vegetable');
+}
+
+public function getproductByCategory($categoryname)
+	{
+		$products = $this->Product->find('list',array(
+			'conditions'=>array('Product.category'=>$categoryname)
+		));
 	  
-	return $vegetables;
+	return $products;
 }
 /**
  * Validation rules

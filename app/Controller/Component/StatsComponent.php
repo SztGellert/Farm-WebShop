@@ -15,7 +15,8 @@ class StatsComponent extends Component {
     } 
     public function calculatelinetotals(&$list,$amountmodel,$pricemodel) {
         foreach ($list as $key => $item) {
-            $list[$key]["linetotal"]=$item[$amountmodel]['amount']*$item[$pricemodel]['price'];
+/*             $list[$key]["linetotal"]=$item[$amountmodel]['amount']*$item[$pricemodel]['price'];
+ */            $list[$key]["cost"]=$item[$amountmodel]['cost'];
         }
     }
 }

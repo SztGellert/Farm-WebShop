@@ -101,6 +101,13 @@ class OrdersController extends AppController {
 		$this->set('dates', $dates );
 
 	}
+	
+	public function testimony() {
+		$orders = $this->Order->find('all');
+		$this->set('orders', $orders );
+
+		
+	}
 /**
  * view method
  *

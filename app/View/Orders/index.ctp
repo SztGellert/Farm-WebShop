@@ -3,6 +3,7 @@
 	<table cellpadding="0" cellspacing="0">
 	<thead>
 	<tr>
+	
 			<th><?php echo $this->Paginator->sort('id'); ?></th>
 			<?php echo $this->Paginator->sort('product_id'); ?></th>
 		<th><?php echo $this->Paginator->sort('name'); ?></th>
@@ -28,8 +29,9 @@
 
 
 
- <!-- 	<?php debug($orders); ?>
- -->	<?php foreach ($orders as $order): ?>
+	<?php foreach ($orders as $order): ?>
+		
+	
 	<tr>
 
 		<td><?php echo h($order['Order']['id']); ?>&nbsp;</td>
@@ -44,13 +46,13 @@
 </td>
 		<?php if ($order['Product']['category']=="fruit") {
 				$available_fruits[]=$order['Product']['name'];
-				$fruits_income+=$order['linetotal'];
+				$fruits_income+=$order['cost'];
 				$fruits_amount+=$order['Order']['amount'];
 
 		}
 			if ($order['Product']['category']=="vegetable") {
 				$available_vegetables[]=$order['Product']['name'];
-				$vegetables_income+=$order['linetotal'];
+				$vegetables_income+=$order['cost'];
 				$vegetables_amount+=$order['Order']['amount'];
 
 

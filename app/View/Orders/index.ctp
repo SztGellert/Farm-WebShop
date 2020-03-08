@@ -9,7 +9,7 @@
 			<th><?php echo $this->Paginator->sort('Image'); ?></th>
  			<th><?php echo $this->Paginator->sort('category'); ?></th>
  			<th><?php echo $this->Paginator->sort('amount'); ?></th>
-			<th><?php echo $this->Paginator->sort('price'); ?></th>
+			<th><?php echo $this->Paginator->sort('cost'); ?></th>
 			<th><?php echo $this->Paginator->sort('creation_date'); ?></th>
 			<th><?php echo $this->Paginator->sort('modification_date'); ?></th>
 
@@ -40,7 +40,7 @@
 
 		<td><?php echo h($order['Product']['category']); ?>
 		<td><?php echo h($order['Order']['amount']." Kg"); ?>
-		<td><?php echo h($order['linetotal']." Ft"); ?>
+		<td><?php echo h($order['Order']['cost']." Ft"); ?>
 </td>
 		<?php if ($order['Product']['category']=="fruit") {
 				$available_fruits[]=$order['Product']['name'];

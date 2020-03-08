@@ -125,7 +125,11 @@ class OrdersController extends AppController {
 	public function add($product_id= null) {
 		if ($this->request->is('post')) {
 			$this->Order->create();
+			$data=$this->request->data;
+			$products = $this->Order->Product->find('first', array(
+				'conditions' => array('id' => $data['Order']['product_id'])));
 			date_default_timezone_set("Europe/Budapest");
+			$this->Order->saveField('cost', $products['Product']['price']*$data['Order']['amount']);
 			$this->Order->saveField('creation_date', (date('Y-m-d H:i:s')));
 			$this->Order->saveField('modification_date', (date('Y-m-d H:i:s')));
 			if ($this->Order->save($this->request->data)) {
@@ -154,6 +158,11 @@ class OrdersController extends AppController {
 			if ($this->Order->save($this->request->data)) {
 				date_default_timezone_set("Europe/Budapest");
 				$this->Order->saveField('modification_date', (date('Y-m-d H:i:s')));
+				$data=$this->request->data;
+				$products = $this->Order->Product->find('first', array(
+				'conditions' => array('id' => $data['Order']['product_id'])));
+				date_default_timezone_set("Europe/Budapest");
+				$this->Order->saveField('cost', $products['Product']['price']*$data['Order']['amount']);
 				$this->Flash->success(__('The order has been saved.'));
 				return $this->redirect(array('action' => 'index'));
 			} else {

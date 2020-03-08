@@ -96,5 +96,20 @@ public function getproductByCategory($categoryname)
 			'order' => ''
 		)
 	);
+/* public function afterSave($created, $options=array(),$price_= null) {
+	if($created) {
 		
+		$price=$this->Product->field('price');
+		debug($price);
+		debug($this->find('all'));
+
+		debug($this->Products);
+		die();
+		$amount=$this->field('amount');
+		$price_=$price*$amount;
+		$this->saveField('cost', $price_);
+	}
+	return true;
+}		
+} */
 }
